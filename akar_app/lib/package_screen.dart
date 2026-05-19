@@ -47,29 +47,53 @@ class _PackageScreenState extends State<PackageScreen> {
                         ),
 
                         /// Coins
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF15CBB).withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            children: [
-                              const Text("🪙"),
-                              const SizedBox(width: 6),
-                              Text(
-                                "400 coins",
-                                style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            /// MAIN CONTAINER
+                            Container(
+                              height: 24,
+                              width: 75,
+
+                              decoration: BoxDecoration(
+                                color: const Color(
+                                  0xFFF15CBB,
+                                ).withOpacity(0.40),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Center(
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: 18),
+                                      Text(
+                                        "400 coins",
+                                        style: GoogleFonts.inter(
+                                          color: const Color(0xFFffffff),
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+
+                            /// COIN IMAGE ABOVE CONTAINER
+                            Positioned(
+                              left: -8,
+                              top: -10,
+                              child: Image.asset(
+                                "assets/images/coinimage.png",
+                                width: 29,
+                                height: 29,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

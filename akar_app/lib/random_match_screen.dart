@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:akar_app/home_screen.dart';
 import 'package:akar_app/match_connect_screen.dart';
 import 'package:akar_app/package_screen.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,12 @@ class _RandomMatchScreenState extends State<RandomMatchScreen>
                   /// BACK BUTTON
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                      );
                     },
                     child: const Icon(
                       Icons.arrow_back_ios,
@@ -72,33 +78,55 @@ class _RandomMatchScreenState extends State<RandomMatchScreen>
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                             PackageScreen(), // 👉 your target screen
+                              PackageScreen(), // 👉 your target screen
                         ),
                       );
                     },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF15CBB).withOpacity(0.4),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        children: [
-                          const Text("🪙", style: TextStyle(fontSize: 14)),
-                          const SizedBox(width: 6),
-                          Text(
-                            "400 coins",
-                            style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        /// MAIN CONTAINER
+                        Container(
+                          height: 24,
+                          width: 75,
+
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF15CBB).withOpacity(0.40),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 18),
+                                  Text(
+                                    "400 coins",
+                                    style: GoogleFonts.inter(
+                                      color: const Color(0xFFffffff),
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+
+                        /// COIN IMAGE ABOVE CONTAINER
+                        Positioned(
+                          left: -8,
+                          top: -10,
+                          child: Image.asset(
+                            "assets/images/coinimage.png",
+                            width: 29,
+                            height: 29,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

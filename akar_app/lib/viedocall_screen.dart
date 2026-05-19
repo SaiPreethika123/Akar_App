@@ -1,3 +1,4 @@
+import 'package:akar_app/package_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +10,20 @@ class ViedocallScreen extends StatefulWidget {
 }
 
 class _VideoCallScreenState extends State<ViedocallScreen> {
+  final List<Map<String, dynamic>> gifts = [
+    {"emoji": "❤️", "name": "Love", "coins": 20},
+    {"emoji": "🌹", "name": "Rose", "coins": 50},
+    {"emoji": "🎁", "name": "Gift Box", "coins": 100},
+    {"emoji": "🍫", "name": "Chocolate", "coins": 30},
+    {"emoji": "💍", "name": "Ring", "coins": 100},
+    {"emoji": "🐻", "name": "Teddy", "coins": 120},
+    {"emoji": "👑", "name": "Crown", "coins": 100},
+    {"emoji": "🚗", "name": "Car", "coins": 200},
+    {"emoji": "💍", "name": "Ring", "coins": 100},
+    {"emoji": "🐻", "name": "Teddy", "coins": 120},
+    {"emoji": "👑", "name": "Crown", "coins": 100},
+    {"emoji": "🚗", "name": "Car", "coins": 200},
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,25 +88,60 @@ class _VideoCallScreenState extends State<ViedocallScreen> {
                     /// RIGHT
                     Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF15CBB).withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    PackageScreen(), // 👉 your target screen
+                              ),
+                            );
+                          },
+                          child: Stack(
+                            clipBehavior: Clip.none,
                             children: [
-                              const Text("🪙"),
-                              const SizedBox(width: 4),
-                              Text(
-                                "400 coins",
-                                style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
+                              /// MAIN CONTAINER
+                              Container(
+                                height: 24,
+                                width: 75,
+
+                                decoration: BoxDecoration(
+                                  color: const Color(
+                                    0xFFF15CBB,
+                                  ).withOpacity(0.40),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Center(
+                                    child: Row(
+                                      children: [
+                                        SizedBox(width: 18),
+                                        Text(
+                                          "400 coins",
+                                          style: GoogleFonts.inter(
+                                            color: const Color(0xFFffffff),
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              /// COIN IMAGE ABOVE CONTAINER
+                              Positioned(
+                                left: -8,
+                                top: -10,
+                                child: Image.asset(
+                                  "assets/images/coinimage.png",
+                                  width: 29,
+                                  height: 29,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ],
@@ -161,19 +211,203 @@ class _VideoCallScreenState extends State<ViedocallScreen> {
                 const SizedBox(width: 70),
 
                 /// 🎁 GIFT ICON
-                ShaderMask(
-                  shaderCallback: (bounds) => LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFFFF4FB3), // top color
-                      Color(0xFF7A3CFF), // bottom color
-                    ],
-                  ).createShader(bounds),
-                  child: const Icon(
-                    Icons.card_giftcard,
-                    size: 26,
-                    color: Colors.white, // IMPORTANT
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      builder: (context) {
+                        return Container(
+                          height: 393,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFF8F1F5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(26),
+                              topRight: Radius.circular(26),
+                            ),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              transform: GradientRotation(0.8),
+                              colors: [Color(0xFFFFFFFF), Color(0xFF992870)],
+                            ),
+                          ),
+
+                          child: Column(
+                            children: [
+                              /// TOP BAR
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Send a gift",
+                                      style: GoogleFonts.inter(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        color: const Color(0xFF7A004F),
+                                      ),
+                                    ),
+
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 4,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+
+                                      child: Row(
+                                        children: [
+                                          const Text("🪙"),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            "400 coins",
+                                            style: GoogleFonts.inter(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              const SizedBox(height: 16),
+
+                              /// GIFTS GRID
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 14,
+                                  ),
+                                  child: GridView.builder(
+                                    itemCount: gifts.length,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          mainAxisSpacing: 12,
+                                          crossAxisSpacing: 12,
+                                          childAspectRatio: 0.78,
+                                        ),
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        height: 98,
+                                        width: 85,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(
+                                            14,
+                                          ),
+                                          border: Border.all(
+                                            color: const Color(0xFF992870),
+                                            width: 1.5,
+                                          ),
+                                        ),
+
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              gifts[index]["emoji"],
+                                              style: const TextStyle(
+                                                fontSize: 24,
+                                              ),
+                                            ),
+
+                                            const SizedBox(height: 6),
+
+                                            Text(
+                                              gifts[index]["name"],
+                                              style: GoogleFonts.inter(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xFF4B5563),
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+
+                                            const SizedBox(height: 4),
+
+                                            Container(
+                                              height: 20,
+                                              width: 65,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                  ),
+                                              decoration: const BoxDecoration(
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color(0xFF992870),
+                                                    Color(0xFF330D25),
+                                                  ],
+                                                ),
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(14),
+                                                ),
+                                              ),
+
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  const Icon(
+                                                    Icons.monetization_on,
+                                                    color: Color(0xFFFFD54F),
+                                                    size: 16,
+                                                  ),
+
+                                                  const SizedBox(width: 4),
+
+                                                  Text(
+                                                    "${gifts[index]["coins"]}",
+                                                    style: GoogleFonts.inter(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+
+                  child: ShaderMask(
+                    shaderCallback: (bounds) => const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFFFF4FB3), Color(0xFF7A3CFF)],
+                    ).createShader(bounds),
+
+                    child: const Icon(
+                      Icons.card_giftcard,
+                      size: 26,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
 

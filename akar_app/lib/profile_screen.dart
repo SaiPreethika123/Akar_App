@@ -1,6 +1,7 @@
 import 'package:akar_app/callhistory_screen.dart';
 import 'package:akar_app/edit_profile_screen.dart';
 import 'package:akar_app/helpandsupport_screen.dart';
+import 'package:akar_app/home_screen.dart';
 import 'package:akar_app/languageprofile_screen.dart';
 import 'package:akar_app/login_screen.dart';
 import 'package:akar_app/mygallery_screen.dart';
@@ -56,7 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  ),
+                                );
                               },
                               child: const Icon(
                                 Icons.arrow_back_ios,
@@ -405,7 +411,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 100),
           ],
         ),
       ),
