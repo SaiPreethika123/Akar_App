@@ -36,16 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBody: true,
       bottomNavigationBar: SizedBox(
+        height: 75,
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.bottomCenter,
-
           children: [
-            /// MAIN BAR
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 18),
-              height: 65,
+              height: 68,
               width: double.infinity,
 
               decoration: const BoxDecoration(
@@ -56,16 +56,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(26),
-                  topRight: Radius.circular(26),
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+                  topLeft: Radius.circular(28),
+                  topRight: Radius.circular(28),
                 ),
               ),
 
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                 children: List.generate(4, (index) {
                   List<IconData> icons = [
                     Icons.explore,
@@ -74,59 +71,67 @@ class _HomeScreenState extends State<HomeScreen> {
                     Icons.person,
                   ];
 
-                  bool isbottomSelected = bottomselectedIndex == index;
+                  bool isSelected = bottomselectedIndex == index;
 
                   return GestureDetector(
                     onTap: () {
                       setState(() {
                         bottomselectedIndex = index;
                       });
-
-                      /// PREMIUM PAGE
-                      if (index == 1) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RandomMatchScreen(),
-                          ),
-                        );
-                      }
-                      if (index == 3) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProfileScreen(),
-                          ),
-                        );
-                      }
                     },
 
-                    child: Transform.translate(
-                      offset: Offset(0, isbottomSelected ? -22 : 0),
+                    child: SizedBox(
+                      width: 65,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: Alignment.center,
+                        children: [
+                          if (isSelected)
+                            Positioned(
+                              top: -24,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: const LinearGradient(
+                                        colors: [
+                                          Color(0xFFD91C93),
+                                          Color(0xFF5B0038),
+                                        ],
+                                      ),
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 5,
+                                      ),
+                                    ),
+                                    child: Icon(
+                                      icons[index],
+                                      color: Colors.white,
+                                      size: 28,
+                                    ),
+                                  ),
 
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-
-                        width: isbottomSelected ? 58 : 45,
-                        height: isbottomSelected ? 58 : 45,
-
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-
-                          color: isbottomSelected
-                              ? const Color(0xFF8A0058)
-                              : Colors.transparent,
-
-                          border: isbottomSelected
-                              ? Border.all(color: Colors.white, width: 6)
-                              : null,
-                        ),
-
-                        child: Icon(
-                          icons[index],
-                          color: Colors.white,
-                          size: 26,
-                        ),
+                                  /// WHITE SEPARATION CURVE
+                                  Container(
+                                    height: 12,
+                                    width: 70,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          else
+                            Icon(icons[index], color: Colors.white, size: 24),
+                        ],
                       ),
                     ),
                   );
