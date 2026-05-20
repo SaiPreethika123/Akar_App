@@ -2,9 +2,10 @@ import 'package:akar_app/callhistory_screen.dart';
 import 'package:akar_app/edit_profile_screen.dart';
 import 'package:akar_app/helpandsupport_screen.dart';
 import 'package:akar_app/home_screen.dart';
+import 'package:akar_app/hostrequestscreen.dart';
 import 'package:akar_app/languageprofile_screen.dart';
 import 'package:akar_app/login_screen.dart';
-import 'package:akar_app/mygallery_screen.dart';
+import 'package:akar_app/mylevel_screen.dart';
 import 'package:akar_app/mywallet_screen.dart';
 import 'package:akar_app/setting_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,64 +31,67 @@ class _ProfileScreenState extends State<ProfileScreen> {
               clipBehavior: Clip.none,
               children: [
                 // PINK CURVED BACKGROUND
-                Container(
-                  height: 220,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color(0xFFAA1B73), Color(0xFF4B062F)],
+                ClipPath(
+                  clipper: ProfileCurveClipper(),
+                  child: Container(
+                    height: 220,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFFAA1B73), Color(0xFF4B062F)],
+                      ),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(90),
+                        bottomRight: Radius.circular(110),
+                      ),
                     ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(90),
-                      bottomRight: Radius.circular(110),
-                    ),
-                  ),
 
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 35,
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(),
-                                  ),
-                                );
-                              },
-                              child: const Icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.white,
-                                size: 20,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 35,
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HomeScreen(),
+                                    ),
+                                  );
+                                },
+                                child: const Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
                               ),
-                            ),
 
-                            const Spacer(),
+                              const Spacer(),
 
-                            Text(
-                              "Profile",
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
+                              Text(
+                                "Profile",
+                                style: GoogleFonts.inter(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
 
-                            const Spacer(),
+                              const Spacer(),
 
-                            const SizedBox(width: 20),
-                          ],
-                        ),
-                      ],
+                              const SizedBox(width: 20),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -320,11 +324,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             profileTileWidget(icon: Icons.person_add, title: "Followers"),
             profileDividerWidget(),
-            profileTileWidget(icon: Icons.shield, title: "My Level"),
+            profileTileWidget(
+              icon: Icons.shield,
+              title: "My Level",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MylevelScreen(),
+                  ),
+                );
+              },
+            ),
             profileDividerWidget(),
             profileTileWidget(
               icon: Icons.live_tv_sharp,
               title: "Host Requests",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Hostrequestscreen(),
+                  ),
+                );
+              },
             ),
             profileDividerWidget(),
             profileTileWidget(icon: Icons.block, title: "Blocked Users"),
@@ -476,4 +499,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Divider(color: Color(0xffE5E7EB), thickness: 1, height: 1),
     );
   }
+}
+
+class ProfileCurveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    // top left
+    path.lineTo(0, size.height - 115);
+
+    // exact smooth deep arc
+    path.quadraticBezierTo(
+      size.width * 0.50,
+      size.height + 150,
+      size.width,
+      size.height - 115,
+    );
+
+    // top right
+    path.lineTo(size.width, 0);
+
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

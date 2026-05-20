@@ -1,4 +1,5 @@
 import 'package:akar_app/audiocall_screen.dart';
+import 'package:akar_app/chat_screen.dart';
 import 'package:akar_app/notification_screen.dart';
 import 'package:akar_app/package_screen.dart';
 import 'package:akar_app/profile_screen.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           buildHomeContent(),
           const RandomMatchScreen(),
-          const NotificationScreen(),
+          const ChatScreen(),
           ProfileScreen(),
         ],
       ),
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Color(0xFFD91C93), Color(0xFF5B0038)],
+                  colors: [Color(0xFF992870), Color(0xFF330D25)],
                 ),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
@@ -108,10 +109,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 62,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      gradient: const LinearGradient(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
                                         colors: [
-                                          Color(0xFFD91C93),
-                                          Color(0xFF5B0038),
+                                          Color(0xFF992870),
+                                          Color(0xFF330D25),
                                         ],
                                       ),
                                       border: Border.all(
