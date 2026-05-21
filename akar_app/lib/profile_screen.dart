@@ -1,4 +1,5 @@
 import 'package:akar_app/callhistory_screen.dart';
+import 'package:akar_app/details_profile_screen.dart';
 import 'package:akar_app/edit_profile_screen.dart';
 import 'package:akar_app/helpandsupport_screen.dart';
 import 'package:akar_app/home_screen.dart';
@@ -322,7 +323,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             profileDividerWidget(),
 
-            profileTileWidget(icon: Icons.person_add, title: "Followers"),
+            profileTileWidget(
+              icon: Icons.person_add,
+              title: "Followers",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DetailsProfileScreen(),
+                  ),
+                );
+              },
+            ),
             profileDividerWidget(),
             profileTileWidget(
               icon: Icons.shield,
